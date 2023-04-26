@@ -30,6 +30,7 @@ public class FlightOrderSystemTest {
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
     driver = new ChromeDriver(options);
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
   }
 
   @AfterEach
@@ -83,7 +84,7 @@ public class FlightOrderSystemTest {
   @Test
   void test() {
 
-    driver.get("https://spring-framework-petclinic-qctjpkmzuq-od.a.run.app/owners/new");
+    driver.get("http://localhost:8080/owners/new");
 
     driver.findElement(By.id("firstName")).sendKeys("John");
     driver.findElement(By.id("lastName")).sendKeys("Doe");
@@ -112,8 +113,10 @@ public class FlightOrderSystemTest {
 
   @Test
   public void test_1() {
-    driver.get("https://spring-framework-petclinic-qctjpkmzuq-od.a.run.app/owners/new");
+    driver.get("http://localhost:8080/owners/new");
     NewOwnerPage page = new NewOwnerPage(driver);
     page.fillFirstName("John");
+    page.fillLastName("Doe");
+    page.submitForm();
   }
 }
